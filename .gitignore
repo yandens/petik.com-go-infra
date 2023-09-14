@@ -1,0 +1,7 @@
+.idea
+src/*.tfvars
+src/*.tfstate
+src/.terraform.lock.hcl
+src/.terraform.tfstate.lock.info
+src/.terraform
+src/*.tfstate.backup
