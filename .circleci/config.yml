@@ -1,0 +1,92 @@
+version: 2
+
+jobs:
+  plan-apply:
+    working_directory: /src
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+        - checkout
+        - run:
+            name: Create terraform.tfvars
+            command: |
+              echo project_id=$PROJECT_ID >> terraform.tfvars
+              echo region=$REGION >> terraform.tfvars
+              echo zone=$ZONE >> terraform.tfvars
+        - run:
+            name: Terraform Init and Plan
+            command: |
+              terraform init -input false
+              terraform plan -out tfapply -var-file terraform.tfvars
+        - persist_to_workspace:
+            root: /src
+            paths:
+              - .
+
+  apply:
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+        - attach_workspace:
+            at: /src
+        - run:
+            name: Terraform Apply
+            command: |
+              terraform apply -auto-approve tfapply
+        - persist_to_workspace:
+            root: /src
+            paths:
+              - .
+
+  plan-destroy:
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+        - attach_workspace:
+            at: /src
+        - run:
+            name: Terraform Plan Destroy
+            command: |
+              terraform plan -destroy -out tfdestroy -var-file terraform.tfvars
+        - persist_to_workspace:
+            root: /src
+            paths:
+              - .
+
+  destroy:
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+        - attach_workspace:
+            at: /src
+        - run:
+            name: Terraform Destroy
+            command: |
+              terraform destroy -auto-approve tfdestroy
+        - persist_to_workspace:
+            root: /src
+            paths:
+              - .
+
+workflows:
+  version: 2
+  plan-apply-destroy:
+    jobs:
+      - plan-apply
+      - hold-apply:
+          type: approval
+          requires:
+            - plan-apply
+      - apply:
+          requires:
+            - hold-apply
+      - plan-destroy:
+          requires:
+            - apply
+      - hold-destroy:
+          type: approval
+          requires:
+            - plan-destroy
+      - destroy:
+          requires:
+            - hold-destroy
