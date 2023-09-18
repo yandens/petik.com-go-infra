@@ -12,7 +12,6 @@ jobs:
             command: |
               mkdir .secret
               echo $GOOGLE_CREDENTIALS > .secret/credentials.json
-              cd src
               echo project_id=$PROJECT_ID >> terraform.tfvars
               echo region=$REGION >> terraform.tfvars
               echo zone=$ZONE >> terraform.tfvars
@@ -23,7 +22,7 @@ jobs:
               ls -la
               cd src
               terraform init -input=false
-              terraform plan -out=tfapply
+              terraform plan -out=tfapply var-file=../terraform.tfvars
         - persist_to_workspace:
             root: .
             paths:
