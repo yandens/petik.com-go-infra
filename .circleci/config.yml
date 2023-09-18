@@ -20,6 +20,7 @@ jobs:
             command: |
               pwd
               ls -la
+              cd src
               terraform init -input=false
               terraform plan -out=tfapply
         - persist_to_workspace:
