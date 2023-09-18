@@ -19,6 +19,7 @@ jobs:
             name: Terraform Init and Plan
             command: |
               pwd
+              ls -la
               terraform init -input=false
               terraform plan -out=tfapply
         - persist_to_workspace:
