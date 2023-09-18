@@ -22,7 +22,7 @@ jobs:
               ls -la
               cd src
               terraform init -input=false
-              terraform plan -out=tfapply var-file=../terraform.tfvars
+              terraform plan var-file=../terraform.tfvars auto-approve
         - persist_to_workspace:
             root: .
             paths:
