@@ -19,7 +19,7 @@ jobs:
             name: Terraform Init and Plan
             command: |
               terraform init -input false
-              terraform plan -out tfapply -var-file terraform.tfvars
+              terraform plan -input false
         - persist_to_workspace:
             root: /src
             paths:
