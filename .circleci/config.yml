@@ -18,8 +18,8 @@ jobs:
         - run:
             name: Terraform Init and Plan
             command: |
-              terraform init -input false
-              terraform plan -input false
+              terraform init -input=false
+              terraform plan -out=tfapply
         - persist_to_workspace:
             root: /src
             paths:
