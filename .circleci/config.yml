@@ -12,6 +12,7 @@ jobs:
             command: |
               mkdir .secret
               echo $GOOGLE_CREDENTIALS > .secret/credentials.json
+              cd src
               echo project_id=$PROJECT_ID >> terraform.tfvars
               echo region=$REGION >> terraform.tfvars
               echo zone=$ZONE >> terraform.tfvars
