@@ -1,4 +1,5 @@
 .idea
+.secret
 src/*.tfvars
 src/*.tfstate
 src/.terraform.lock.hcl
