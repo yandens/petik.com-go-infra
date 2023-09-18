@@ -21,7 +21,7 @@ jobs:
             command: |
               cd src
               terraform init -input=false
-              terraform plan -lock=false -var-file=terraform.tfvars
+              terraform plan -lock=false
         - persist_to_workspace:
             root: .
             paths:
@@ -36,7 +36,6 @@ jobs:
         - run:
             name: Terraform Apply
             command: |
-              ls -la
               cd src
               terraform apply -auto-approve -lock=false
         - persist_to_workspace:
@@ -53,7 +52,8 @@ jobs:
         - run:
             name: Terraform Plan Destroy
             command: |
-              terraform plan -destroy -out=tfdestroy -var-file=../terraform.tfvars
+              cd src
+              terraform plan -destroy -lock=false
         - persist_to_workspace:
             root: .
             paths:
@@ -68,6 +68,7 @@ jobs:
         - run:
             name: Terraform Destroy
             command: |
+              cd src
               terraform destroy -auto-approve tfdestroy
         - persist_to_workspace:
             root: .
