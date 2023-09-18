@@ -69,7 +69,7 @@ jobs:
             name: Terraform Destroy
             command: |
               cd src
-              terraform destroy -auto-approve tfdestroy
+              terraform destroy -auto-approve -lock=false
         - persist_to_workspace:
             root: .
             paths:
