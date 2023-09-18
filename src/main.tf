@@ -19,6 +19,10 @@ provider "google" {
   zone    = var.zone
 }
 
+resource "google_project_service" "api_service" {
+  service = ["iam.googleapis.com", "compute.googleapis.com", "storage.googleapis.com", "container.googleapis.com", "artifactregistry.googleapis.com", "sqladmin.googleapis.com"]
+}
+
 resource "google_storage_bucket" "terraform_cicd_state" {
   name          = "bucket-state-terraform-cicd"
   location      = var.region
