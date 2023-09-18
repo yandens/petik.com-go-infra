@@ -12,8 +12,3 @@ variable "zone" {
   type        = string
   description = "Zone to Deploy the Infrastructure"
 }
-
-variable "credentials" {
-  type        = string
-  description = "Credentials to access the Google Cloud Platform"
-}
