@@ -12,17 +12,16 @@ jobs:
             command: |
               mkdir .secret
               echo $GOOGLE_CREDENTIALS > .secret/credentials.json
+              cd src
               echo project_id=$PROJECT_ID >> terraform.tfvars
               echo region=$REGION >> terraform.tfvars
               echo zone=$ZONE >> terraform.tfvars
         - run:
             name: Terraform Init and Plan
             command: |
-              pwd
-              ls -la
               cd src
               terraform init -input=false
-              terraform plan -out=tfapply -var-file=../terraform.tfvars -lock=false
+              terraform plan -out=tfapply -lock=false
         - persist_to_workspace:
             root: .
             paths:
@@ -33,13 +32,13 @@ jobs:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
         - attach_workspace:
-            at: /src
+            at: .
         - run:
             name: Terraform Apply
             command: |
               terraform apply -auto-approve tfapply
         - persist_to_workspace:
-            root: /src
+            root: .
             paths:
               - .
 
@@ -48,13 +47,13 @@ jobs:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
         - attach_workspace:
-            at: /src
+            at: .
         - run:
             name: Terraform Plan Destroy
             command: |
-              terraform plan -destroy -out tfdestroy -var-file terraform.tfvars
+              terraform plan -destroy -out=tfdestroy -var-file=../terraform.tfvars
         - persist_to_workspace:
-            root: /src
+            root: .
             paths:
               - .
 
@@ -63,13 +62,13 @@ jobs:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
         - attach_workspace:
-            at: /src
+            at: .
         - run:
             name: Terraform Destroy
             command: |
               terraform destroy -auto-approve tfdestroy
         - persist_to_workspace:
-            root: /src
+            root: .
             paths:
               - .
 
