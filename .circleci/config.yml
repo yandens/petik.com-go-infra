@@ -10,6 +10,7 @@ jobs:
         - run:
             name: Create terraform.tfvars
             command: |
+              echo $GOOGLE_CREDENTIALS > ../.secret/credentials.json
               echo project_id=$PROJECT_ID >> terraform.tfvars
               echo region=$REGION >> terraform.tfvars
               echo zone=$ZONE >> terraform.tfvars
