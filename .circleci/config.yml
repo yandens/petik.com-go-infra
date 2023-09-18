@@ -38,7 +38,7 @@ jobs:
             command: |
               ls -la
               cd src
-              terraform apply -auto-approve
+              terraform apply -auto-approve -lock=false
         - persist_to_workspace:
             root: .
             paths:
