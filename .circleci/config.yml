@@ -21,7 +21,7 @@ jobs:
             command: |
               cd src
               terraform init -input=false
-              terraform plan -out=tfapply -lock=false
+              terraform plan -out=tfapply -lock=false -var-file=terraform.tfvars
         - persist_to_workspace:
             root: .
             paths:
