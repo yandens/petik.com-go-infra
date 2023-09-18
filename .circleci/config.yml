@@ -23,7 +23,7 @@ jobs:
               terraform init -input=false
               terraform plan -out=tfapply -lock=false
         - persist_to_workspace:
-            root: /src
+            root: .
             paths:
               - .
 
@@ -32,11 +32,11 @@ jobs:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
         - attach_workspace:
-            at: /src
+            at: .
         - run:
             name: Terraform Apply
             command: |
-              terraform apply -auto-approve tfapply
+              terraform apply -auto-approve
         - persist_to_workspace:
             root: .
             paths:
@@ -47,7 +47,7 @@ jobs:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
         - attach_workspace:
-            at: /src
+            at: .
         - run:
             name: Terraform Plan Destroy
             command: |
@@ -62,7 +62,7 @@ jobs:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
         - attach_workspace:
-            at: /src
+            at: .
         - run:
             name: Terraform Destroy
             command: |
