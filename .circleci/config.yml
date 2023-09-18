@@ -2,13 +2,13 @@ version: 2
 
 jobs:
   plan-apply:
-    working_directory: ./src
+    working_directory: .
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
         - checkout
         - run:
-            name: Create terraform.tfvars
+            name: Create terraform.tfvars and credentials.json
             command: |
               mkdir ../.secret
               echo $GOOGLE_CREDENTIALS > ../.secret/credentials.json
@@ -23,7 +23,7 @@ jobs:
               terraform init -input=false
               terraform plan -out=tfapply
         - persist_to_workspace:
-            root: /src
+            root: .
             paths:
               - .
 
