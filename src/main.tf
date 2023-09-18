@@ -25,3 +25,8 @@ resource "google_storage_bucket" "terraform_cicd_state" {
   force_destroy = false
   public_access_prevention = "enforced"
 }
+
+resource "google_service_account" "test-sa" {
+  account_id = "test-cicd"
+  display_name = "Test CICD"
+}
