@@ -6,74 +6,74 @@ jobs:
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
-        - checkout
-        - run:
-            name: Create terraform.tfvars and credentials.json
-            command: |
-              mkdir .secret
-              echo $GOOGLE_CREDENTIALS > .secret/credentials.json
-              cd src
-              echo project_id=$PROJECT_ID >> terraform.tfvars
-              echo region=$REGION >> terraform.tfvars
-              echo zone=$ZONE >> terraform.tfvars
-        - run:
-            name: Terraform Init and Plan
-            command: |
-              cd src
-              terraform init -input=false
-              terraform plan -lock=false
-        - persist_to_workspace:
-            root: .
-            paths:
-              - .
+      - checkout
+      - run:
+          name: Create terraform.tfvars and credentials.json
+          command: |
+            mkdir .secret
+            echo $GOOGLE_CREDENTIALS > .secret/credentials.json
+            cd src
+            echo project_id=$PROJECT_ID >> terraform.tfvars
+            echo region=$REGION >> terraform.tfvars
+            echo zone=$ZONE >> terraform.tfvars
+      - run:
+          name: Terraform Init and Plan
+          command: |
+            cd src
+            terraform init -input=false
+            terraform plan -lock=false
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   apply:
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
-        - attach_workspace:
-            at: .
-        - run:
-            name: Terraform Apply
-            command: |
-              cd src
-              terraform apply -auto-approve -lock=false
-        - persist_to_workspace:
-            root: .
-            paths:
-              - .
+      - attach_workspace:
+          at: .
+      - run:
+          name: Terraform Apply
+          command: |
+            cd src
+            terraform apply -auto-approve -lock=false
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
 #  plan-destroy:
 #    docker:
 #      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
 #    steps:
-#        - attach_workspace:
-#            at: .
-#        - run:
-#            name: Terraform Plan Destroy
-#            command: |
-#              cd src
-#              terraform plan -destroy -lock=false
-#        - persist_to_workspace:
-#            root: .
-#            paths:
-#              - .
+#       - attach_workspace:
+#           at: .
+#       - run:
+#           name: Terraform Plan Destroy
+#           command: |
+#             cd src
+#             terraform plan -destroy -lock=false
+#       - persist_to_workspace:
+#           root: .
+#           paths:
+#             - .
 #
 #  destroy:
 #    docker:
 #      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
 #    steps:
-#        - attach_workspace:
-#            at: .
-#        - run:
-#            name: Terraform Destroy
-#            command: |
-#              cd src
-#              terraform destroy -auto-approve -lock=false
-#        - persist_to_workspace:
-#            root: .
-#            paths:
-#              - .
+#       - attach_workspace:
+#           at: .
+#       - run:
+#           name: Terraform Destroy
+#           command: |
+#             cd src
+#             terraform destroy -auto-approve -lock=false
+#       - persist_to_workspace:
+#           root: .
+#           paths:
+#             - .
 
 workflows:
   version: 2
