@@ -45,7 +45,7 @@ jobs:
 
 workflows:
   version: 2
-  plan-apply-destroy:
+  plan-apply:
     jobs:
       - plan
       - hold-apply:
