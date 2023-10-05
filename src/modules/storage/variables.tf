@@ -18,7 +18,7 @@ variable "sa_name" {
 variable "roles_sa_bucket" {
   type        = list(string)
   description = "The roles to be assigned to the service account"
-  default     = ["roles/storage.objectUser"]
+  default     = ["roles/storage.objectUser", "roles/resourcemanager.projectIamAdmin", "roles/servicenetworking.networksAdmin"]
 }
 
 variable "project_id" {

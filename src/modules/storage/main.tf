@@ -1,10 +1,6 @@
-resource "random_id" "id" {
-  byte_length = 8
-}
-
 resource "google_storage_bucket" "terraform-state" {
   location                    = var.region
-  name                        = "${var.bucket_terraform_state}-${random_id.id.hex}"
+  name                        = var.bucket_terraform_state
   storage_class               = "STANDARD"
   force_destroy               = false
   uniform_bucket_level_access = true
@@ -18,7 +14,7 @@ resource "google_storage_bucket" "terraform-state" {
 
 resource "google_service_account" "state-sa" {
   account_id   = var.sa_name
-  display_name = "Service Account for Terraform State"
+  display_name = "Terraform State Service Account"
 }
 
 resource "google_project_iam_binding" "bucket-sa-roles" {
