@@ -1,3 +1,4 @@
 project_id=
 region=
 zone=
+cluster_node_zone=

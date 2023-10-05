@@ -12,3 +12,8 @@ variable "zone" {
   type        = string
   description = "Zone to Deploy the Infrastructure"
 }
+
+variable "cluster_node_zone" {
+  type = string
+  description = "Zone to Deploy the Kubernetes Cluster"
+}
