@@ -41,3 +41,9 @@ module "gke" {
   cluster_ipv4_cidr_block  = "10.101.0.0/20"
   services_ipv4_cidr_block = "10.102.0.0/20"
 }
+
+module "bucket" {
+  source = "./modules/storage"
+  project_id = var.project_id
+  region = var.region
+}
