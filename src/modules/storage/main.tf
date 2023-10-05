@@ -1,6 +1,10 @@
+resource "random_id" "id" {
+  byte_length = 8
+}
+
 resource "google_storage_bucket" "terraform-state" {
   location                    = var.region
-  name                        = var.bucket_terraform_state
+  name                        = var.bucket_terraform_state + "-" + random_id.id.hex
   storage_class               = "STANDARD"
   force_destroy               = false
   uniform_bucket_level_access = true
