@@ -14,6 +14,6 @@ variable "zone" {
 }
 
 variable "cluster_node_zone" {
-  type = string
+  type = list(string)
   description = "Zone to Deploy the Kubernetes Cluster"
 }
