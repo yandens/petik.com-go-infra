@@ -1,7 +1,7 @@
 variable "bucket_terraform_state" {
   type        = string
   description = "Name for the bucket"
-  default     = "terraform-state-petik.com"
+  default     = "terraform-state-petik"
 }
 
 variable "region" {
