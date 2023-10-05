@@ -16,6 +16,7 @@ jobs:
             echo project_id=$PROJECT_ID >> terraform.tfvars
             echo region=$REGION >> terraform.tfvars
             echo zone=$ZONE >> terraform.tfvars
+            echo cluster_node_zone=$CLUSTER_NODE_ZONE >> terraform.tfvars
       - run:
           name: Terraform Init and Plan
           command: |
