@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "bucket-state-terraform-cicd"
+    bucket  = "terraform-state-petik"
     prefix  = "terraform/state"
     credentials = "../.secret/credentials.json"
   }
