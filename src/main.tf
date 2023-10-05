@@ -40,3 +40,10 @@ module "bucket" {
   project_id = var.project_id
   region = var.region
 }
+
+module "database" {
+  source = "./modules/database"
+  region                     = var.region
+  network                    = module.vpc.network.id
+  network_private_connection = module.vpc.private_ip_connection.id
+}
