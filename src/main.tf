@@ -53,8 +53,3 @@ module "artifact" {
   source = "./modules/artifact-registry"
   region = var.region
 }
-
-resource "google_service_account" "sa" {
-  account_id = "terraform"
-  display_name = "Terraform service account"
-}
