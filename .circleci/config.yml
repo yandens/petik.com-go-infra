@@ -96,19 +96,19 @@ workflows:
             branches:
               only:
                 - dev
-      - plan-prod:
-          filters:
-            branches:
-              only:
-                - main
+#      - plan-prod:
+#          filters:
+#            branches:
+#              only:
+#                - main
       - hold-apply-dev:
           type: approval
           requires:
             - plan-dev
-      - hold-apply-prod:
-          type: approval
-          requires:
-            - plan-prod
+#      - hold-apply-prod:
+#          type: approval
+#          requires:
+#            - plan-prod
       - apply-dev:
           filters:
             branches:
@@ -116,10 +116,10 @@ workflows:
                 - dev
           requires:
             - hold-apply-dev
-      - apply-prod:
-          filters:
-            branches:
-              only:
-                - main
-          requires:
-            - hold-apply-prod
+#      - apply-prod:
+#          filters:
+#            branches:
+#              only:
+#                - main
+#          requires:
+#            - hold-apply-prod
