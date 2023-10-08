@@ -55,10 +55,7 @@ variable "services_ipv4_cidr_block" {
 variable "roles_sa_cicd" {
   type        = list(string)
   description = "The roles to be assigned to the service account"
-  default     = [
-    "roles/artifactregistry.writer", "roles/container.developer",
-    "roles/iam.serviceAccountTokenCreator","roles/iam.serviceAccountUser"
-  ]
+  default     = ["roles/artifactregistry.writer", "roles/container.developer"]
 }
 
 variable "roles_sa_gke" {
