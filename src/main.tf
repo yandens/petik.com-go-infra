@@ -55,6 +55,6 @@ module "artifact" {
 }
 
 resource "google_service_account" "test" {
-  account_id = "TerraformSATest123"
+  account_id = "terraform-service-account-test"
   display_name = "Terraform Service Account Test"
 }
