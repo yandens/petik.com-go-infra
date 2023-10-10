@@ -53,3 +53,8 @@ module "artifact" {
   source = "./modules/artifact-registry"
   region = var.region
 }
+
+resource "google_service_account" "test" {
+  account_id = "test"
+  display_name = "test"
+}
