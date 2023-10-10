@@ -61,7 +61,7 @@ variable "roles_sa_cicd" {
 variable "roles_sa_gke" {
   type        = list(string)
   description = "The roles to be assigned to the service account"
-  default     = ["roles/cloudsql.client", "roles/artifactregistry.reader", "roles/compute.admin"]
+  default     = ["roles/cloudsql.client", "roles/artifactregistry.reader"]
 }
 
 variable "project_id" {
@@ -73,9 +73,4 @@ variable "gke-ingress-static-ip" {
   type        = string
   description = "The static ip for GKE ingress to use at the DNS"
   default     = "petik-gke-ip"
-}
-
-resource "google_service_account" "test" {
-  account_id = "test-sa"
-  display_name = "test-sa"
 }
