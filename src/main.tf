@@ -31,17 +31,17 @@ module "vpc" {
   region = var.region
 }
 
-#module "gke" {
-#  source = "./modules/gke"
-#  project_id               = var.project_id
-#  zone                     = var.zone
-#  node_zone                = var.cluster_node_zone
-#  network_name             = module.vpc.network.name
-#  subnetwork_name          = module.vpc.subnet.name
-#  cluster_ipv4_cidr_block  = "10.101.0.0/20"
-#  services_ipv4_cidr_block = "10.102.0.0/20"
-#}
-#
+module "gke" {
+  source = "./modules/gke"
+  project_id               = var.project_id
+  zone                     = var.zone
+  node_zone                = var.cluster_node_zone
+  network_name             = module.vpc.network.name
+  subnetwork_name          = module.vpc.subnet.name
+  cluster_ipv4_cidr_block  = "10.101.0.0/20"
+  services_ipv4_cidr_block = "10.102.0.0/20"
+}
+
 module "bucket" {
   source = "./modules/storage"
   project_id = var.project_id

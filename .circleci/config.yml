@@ -66,10 +66,6 @@ jobs:
           command: |
             cd src
             terraform apply -auto-approve -lock=false
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
 
 #  apply-prod:
 #    docker:
@@ -82,10 +78,6 @@ jobs:
 #          command: |
 #            cd src
 #            terraform apply -auto-approve -lock=false
-#      - persist_to_workspace:
-#          root: .
-#          paths:
-#            - .
 
 workflows:
   version: 2
