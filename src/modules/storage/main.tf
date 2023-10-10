@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "terraform-state" {
   location                    = var.region
-  name                        = var.bucket_terraform_state
+  name                        = var.bucket_terraform_state_cicd
   storage_class               = "STANDARD"
   force_destroy               = false
   uniform_bucket_level_access = true
@@ -13,16 +13,16 @@ resource "google_storage_bucket" "terraform-state" {
   }
 }
 
-resource "google_service_account" "state-sa" {
+resource "google_service_account" "terraform-sa" {
   account_id   = var.sa_name
-  display_name = "Terraform State Service Account"
+  display_name = "Terraform Service Account"
 }
 
-resource "google_project_iam_binding" "bucket-sa-roles" {
+resource "google_project_iam_binding" "terraform-sa-roles" {
   project  = var.project_id
-  for_each = toset(var.roles_sa_bucket)
+  for_each = toset(var.roles_sa_terraform)
   role     = each.value
   members  = [
-    "serviceAccount:${google_service_account.state-sa.email}"
+    "serviceAccount:${google_service_account.terraform-sa.email}"
   ]
 }

@@ -1,9 +1,9 @@
 terraform {
-#  backend "gcs" {
-#    bucket  = "terraform-state-petik"
-#    prefix  = "terraform/state"
-#    credentials = "../.secret/credentials.json"
-#  }
+  backend "gcs" {
+    bucket  = "terraform-state-petik"
+    prefix  = "terraform/state"
+    credentials = "../.secret/credentials.json"
+  }
 
   required_providers {
     google = {
@@ -42,11 +42,11 @@ resource "google_project_service" "service" {
 #  services_ipv4_cidr_block = "10.102.0.0/20"
 #}
 #
-#module "bucket" {
-#  source = "./modules/storage"
-#  project_id = var.project_id
-#  region = var.region
-#}
+module "bucket" {
+  source = "./modules/storage"
+  project_id = var.project_id
+  region = var.region
+}
 
 #module "database" {
 #  source = "./modules/database"
