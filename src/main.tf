@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "terraform-state-petik"
+    bucket  = "state-petik"
     prefix  = "terraform/state"
     credentials = "../.secret/credentials.json"
   }
@@ -17,7 +17,7 @@ provider "google" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
-#  credentials = "../.secret/credentials.json"
+  credentials = "../.secret/credentials.json"
 }
 
 resource "google_project_service" "service" {
@@ -26,11 +26,11 @@ resource "google_project_service" "service" {
   service   = each.value
 }
 
-#module "vpc" {
-#  source = "./modules/network"
-#  region = var.region
-#}
-#
+module "vpc" {
+  source = "./modules/network"
+  region = var.region
+}
+
 #module "gke" {
 #  source = "./modules/gke"
 #  project_id               = var.project_id
