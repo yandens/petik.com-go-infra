@@ -55,13 +55,13 @@ variable "services_ipv4_cidr_block" {
 variable "roles_sa_cicd" {
   type        = list(string)
   description = "The roles to be assigned to the service account"
-  default     = ["roles/artifactregistry.writer", "roles/container.developer"]
+  default     = ["roles/artifactregistry.writer", "roles/container.developer", "roles/compute.admin"]
 }
 
 variable "roles_sa_gke" {
   type        = list(string)
   description = "The roles to be assigned to the service account"
-  default     = ["roles/cloudsql.client", "roles/artifactregistry.reader"]
+  default     = ["roles/cloudsql.client", "roles/artifactregistry.reader", "roles/compute.admin"]
 }
 
 variable "project_id" {
