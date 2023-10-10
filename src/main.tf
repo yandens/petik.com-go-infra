@@ -55,6 +55,6 @@ module "artifact" {
 }
 
 resource "google_service_account" "test" {
-  account_id = "test"
+  account_id = "Test SA"
   display_name = "test"
 }
