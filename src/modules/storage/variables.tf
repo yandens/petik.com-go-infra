@@ -18,7 +18,7 @@ variable "sa_name" {
 variable "roles_sa_terraform" {
   type        = list(string)
   description = "The roles to be assigned to the service account"
-  default     = ["roles/editor", "roles/resourcemanager.projectIamAdmin", "roles/servicenetworking.networksAdmin"]
+  default     = ["roles/editor", "roles/resourcemanager.projectIamAdmin", "roles/servicenetworking.networksAdmin",  "roles/iam.serviceAccountUser"]
 }
 
 variable "project_id" {
