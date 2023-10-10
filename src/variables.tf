@@ -17,3 +17,12 @@ variable "cluster_node_zone" {
   type = list(string)
   description = "Zone to Deploy the Kubernetes Cluster"
 }
+
+variable "services" {
+  type = list(string)
+  description = "Services to Deploy"
+  default = [
+    "compute.googleapis.com", "artifactregistry.googleapis.com", "sqladmin.googleapis.com", "iam.googleapis.com",
+    "container.googleapis.com", "cloudresourcemanager.googleapis.com", "servicenetworking.googleapis.com"
+  ]
+}
