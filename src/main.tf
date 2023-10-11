@@ -46,6 +46,7 @@ module "bucket" {
   source = "./modules/storage"
   project_id = var.project_id
   region = var.region
+  project_number = var.project_number
 }
 
 module "database" {

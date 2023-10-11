@@ -26,3 +26,12 @@ resource "google_project_iam_binding" "terraform-sa-roles" {
     "serviceAccount:${google_service_account.terraform-sa.email}"
   ]
 }
+
+resource "google_project_iam_binding" "editor-role" {
+  project = var.project_id
+  role    = "roles/editor"
+  members = [
+    "serviceAccount:${google_service_account.terraform-sa.email}",
+    "serviceAccount:${var.project_number}@cloudservices.gserviceaccount.com"
+  ]
+}
