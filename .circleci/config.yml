@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  plan:
+  plan-dev:
     working_directory: /tmp/project
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
@@ -11,12 +11,13 @@ jobs:
           name: Create terraform.tfvars and credentials.json
           command: |
             mkdir .secret
-            echo $GOOGLE_CREDENTIALS > .secret/credentials.json
+            echo $GOOGLE_CREDENTIALS_DEV > .secret/credentials.json
             cd src
-            echo project_id=$PROJECT_ID >> terraform.tfvars
-            echo region=$REGION >> terraform.tfvars
-            echo zone=$ZONE >> terraform.tfvars
-            echo cluster_node_zone=$CLUSTER_NODE_ZONE >> terraform.tfvars
+            echo project_id=$PROJECT_ID_DEV >> terraform.tfvars
+            echo region=$REGION_DEV >> terraform.tfvars
+            echo zone=$ZONE_DEV >> terraform.tfvars
+            echo cluster_node_zone=$CLUSTER_NODE_ZONE_DEV >> terraform.tfvars
+            echo project_number=$PROJECT_NUMBER_DEV >> terraform.tfvars
       - run:
           name: Terraform Init and Plan
           command: |
@@ -28,7 +29,35 @@ jobs:
           paths:
             - .
 
-  apply:
+#  plan-prod:
+#    working_directory: /tmp/project
+#    docker:
+#      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+#    steps:
+#      - checkout
+#      - run:
+#          name: Create terraform.tfvars and credentials.json
+#          command: |
+#            mkdir .secret
+#            echo $GOOGLE_CREDENTIALS_PROD > .secret/credentials.json
+#            cd src
+#            echo project_id=$PROJECT_ID_PROD >> terraform.tfvars
+#            echo region=$REGION_PROD >> terraform.tfvars
+#            echo zone=$ZONE_PROD >> terraform.tfvars
+#            echo cluster_node_zone=$CLUSTER_NODE_ZONE_PROD >> terraform.tfvars
+#            echo project_number=$PROJECT_NUMBER_DEV >> terraform.tfvars
+#      - run:
+#          name: Terraform Init and Plan
+#          command: |
+#            cd src
+#            terraform init -input=false
+#            terraform plan -lock=false
+#      - persist_to_workspace:
+#          root: .
+#          paths:
+#            - .
+
+  apply-dev:
     docker:
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
@@ -39,20 +68,52 @@ jobs:
           command: |
             cd src
             terraform apply -auto-approve -lock=false
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+
+#  apply-prod:
+#    docker:
+#      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+#    steps:
+#      - attach_workspace:
+#          at: .
+#      - run:
+#          name: Terraform Apply
+#          command: |
+#            cd src
+#            terraform apply -auto-approve -lock=false
 
 workflows:
   version: 2
   plan-apply:
     jobs:
-      - plan
-      - hold-apply:
+      - plan-dev:
+          filters:
+            branches:
+              only:
+                - dev
+#      - plan-prod:
+#          filters:
+#            branches:
+#              only:
+#                - main
+      - hold-apply-dev:
           type: approval
           requires:
-            - plan
-      - apply:
+            - plan-dev
+#      - hold-apply-prod:
+#          type: approval
+#          requires:
+#            - plan-prod
+      - apply-dev:
+          filters:
+            branches:
+              only:
+                - dev
           requires:
-            - hold-apply
+            - hold-apply-dev
+#      - apply-prod:
+#          filters:
+#            branches:
+#              only:
+#                - main
+#          requires:
+#            - hold-apply-prod
