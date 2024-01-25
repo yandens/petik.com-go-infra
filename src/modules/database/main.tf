@@ -16,5 +16,5 @@ resource "google_sql_database_instance" "petik" {
     }
   }
 
-  deletion_protection = "true"
+  deletion_protection = "false"
 }
