@@ -26,12 +26,12 @@ resource "google_project_service" "service" {
   service   = each.value
 }
 
-#module "vpc" {
-#  source = "./modules/network"
-#  region = var.region
-#  depends_on = [google_project_service.service]
-#}
-#
+module "vpc" {
+  source = "./modules/network"
+  region = var.region
+  depends_on = [google_project_service.service]
+}
+
 #module "gke" {
 #  source = "./modules/gke"
 #  project_id               = var.project_id
