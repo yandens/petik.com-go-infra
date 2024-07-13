@@ -1,13 +1,13 @@
 variable "db_name" {
   type        = string
   description = "The name of the database"
-  default     = "petik-db"
+  default     = "petik-go-db"
 }
 
 variable "instance_name" {
   type        = string
   description = "The name of the instance"
-  default     = "petik"
+  default     = "iac-db-instance"
 }
 
 variable "region" {

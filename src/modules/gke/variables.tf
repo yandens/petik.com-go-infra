@@ -11,13 +11,13 @@ variable "node_zone" {
 variable "gke_name" {
   type        = string
   description = "The name of the GKE cluster"
-  default     = "petik-cluster"
+  default     = "iac-cluster"
 }
 
 variable "gke_node_pool_name" {
   type        = string
   description = "The name of the GKE node pool"
-  default     = "petik-node-pool"
+  default     = "iac-node-pool"
 }
 
 variable "network_name" {
@@ -33,13 +33,13 @@ variable "subnetwork_name" {
 variable "gke_sa_name" {
   type        = string
   description = "The service account to use"
-  default     = "petik-gke-sa"
+  default     = "iac-gke-sa"
 }
 
 variable "cicd_sa_name" {
   type        = string
   description = "The service account to use"
-  default     = "petik-cicd-sa"
+  default     = "iac-cicd-sa"
 }
 
 variable "cluster_ipv4_cidr_block" {
@@ -72,5 +72,5 @@ variable "project_id" {
 variable "gke-ingress-static-ip" {
   type        = string
   description = "The static ip for GKE ingress to use at the DNS"
-  default     = "petik-gke-ip"
+  default     = "iac-gke-ip"
 }

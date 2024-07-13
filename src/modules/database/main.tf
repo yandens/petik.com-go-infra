@@ -1,9 +1,9 @@
-resource "google_sql_database" "petik-db" {
-  instance = google_sql_database_instance.petik.name
+resource "google_sql_database" "iac-db" {
+  instance = google_sql_database_instance.iac.name
   name     = var.db_name
 }
 
-resource "google_sql_database_instance" "petik" {
+resource "google_sql_database_instance" "iac" {
   name             = var.instance_name
   region           = var.region
   database_version = "POSTGRES_14"

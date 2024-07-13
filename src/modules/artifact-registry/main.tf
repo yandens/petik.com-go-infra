@@ -1,4 +1,4 @@
-resource "google_artifact_registry_repository" "petik-repo" {
+resource "google_artifact_registry_repository" "iac-repo" {
   location      = var.region
   repository_id = var.repository_id
   description   = "This is the artifact registry for Backend API service"

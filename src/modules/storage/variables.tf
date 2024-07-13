@@ -1,7 +1,7 @@
 variable "bucket_terraform_state_cicd" {
   type        = string
   description = "Name for the bucket"
-  default     = "state-terraform-1086"
+  default     = "state-1086"
 }
 
 variable "region" {

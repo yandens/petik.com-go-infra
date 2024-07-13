@@ -1,31 +1,31 @@
 variable "network_name" {
   type        = string
   description = "The name of the network"
-  default     = "vpc-petik"
+  default     = "vpc-iac"
 }
 
 variable "subnet_name" {
   type        = string
   description = "The name of the subnet"
-  default     = "vpc-petik-subnet"
+  default     = "vpc-iac-subnet"
 }
 
 variable "egress_name" {
   type        = string
   description = "The name of the egress"
-  default     = "vpc-petik-egress"
+  default     = "vpc-iac-egress"
 }
 
 variable "router_name" {
   type        = string
   description = "The name of the router"
-  default     = "vpc-petik-router"
+  default     = "vpc-iac-router"
 }
 
 variable "nat_name" {
   type        = string
   description = "The name of nat"
-  default     = "vpc-petik-nat"
+  default     = "vpc-iac-nat"
 }
 
 variable "region" {
@@ -36,5 +36,5 @@ variable "region" {
 variable "private_ip_block_name" {
   type        = string
   description = "The name of the private ip block"
-  default     = "vpc-petik-private-ip-block"
+  default     = "vpc-iac-private-ip-block"
 }
